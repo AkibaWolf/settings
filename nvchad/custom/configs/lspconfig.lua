@@ -1,11 +1,17 @@
-local on_attach = require('plugins.configs.lspconfig').on_attach
-local capabilities = require('plugins.configs.lspconfig').capabilities
+local on_attach = require("plugins.configs.lspconfig").on_attach
+local capabilities = require("plugins.configs.lspconfig").capabilities
 
-local lspconfig = require 'lspconfig'
+local lspconfig = require "lspconfig"
 
-lspconfig.phpactor.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = {'php'},
-  root_dir = lspconfig.util.root_pattern('composer.json'),
-})
+-- if you just want default config for the servers then put them in a table
+local servers = { "html", "cssls" }
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
+
+-- 
+-- lspconfig.pyright.setup { blabla}
